@@ -1,0 +1,127 @@
+<?php
+/**
+ * Plumrocket Inc.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the End-user License Agreement
+ * that is available through the world-wide-web at this URL:
+ * http://wiki.plumrocket.net/wiki/EULA
+ * If you are unable to obtain it through the world-wide-web, please 
+ * send an email to support@plumrocket.com so we can send you a copy immediately.
+ *
+ * @package     Plumrocket_Shipping_Tracking
+ * @copyright   Copyright (c) 2014 Plumrocket Inc. (http://www.plumrocket.com)
+ * @license     http://wiki.plumrocket.net/wiki/EULA  End-user License Agreement
+ */
+?>
+<?php $_results = $this->getTrackingInfo();
+print_r($_results);
+?>
+<?php $order = Mage::registry('current_order'); ?>
+<div class="page-title title-buttons">
+    <h1><?php echo $this->__('Order Status'); ?></h1>
+</div>
+<br/>
+<div class="fieldset">
+    <h2 class="legend"><?php echo $this->__('General Information') ?></h2>
+    <ul class="form-list">
+        <li class="fields">
+            <strong><?php echo $this->__('Order') ?>:</strong> #<?php echo $order->getIncrementId() ?>
+        </li>
+        <li class="fields">
+            <strong><?php echo $this->__('Order Status') ?>:</strong> <?php echo $order->getStatusLabel() ?>
+        </li>
+    </ul>
+</div>
+<br/>
+<?php if(count($_results) > 0): ?>
+<?php foreach($_results as $shipid => $_result): ?>
+    <?php if($shipid): ?>
+       <h2><?php echo $this->__('Tracking Information'); ?> (<?php echo $this->__('Shipment #').$shipid; ?>)</h2>
+    <?php endif; ?>
+    <?php if(count($_result) > 0): ?>
+        <?php $rowCount = count($_result); $counter = 1; ?>
+        <?php $_id = 0; foreach($_result as $track): $details = Mage::helper('shippingtracking')->getKuaiDiTrackingInfo($track['track_number'],$track['carrier_code']);?>
+            <table class="tracking-table-popup table table-bordered" id="tracking-table-popup-<?php echo $_id ?>">
+                <col width="15%" />
+                <col />
+                <tbody>
+                    <tr>
+                        <th><?php echo $this->__('Tracking Number:'); ?></th>
+                        <td><?php echo $this->escapeHtml($track['track_number']); ?></td>
+                    </tr>
+                    <tr>
+                        <th><?php echo $this->__('Carrier:'); ?></th>
+                        <td><?php echo $this->escapeHtml($track['title']); ?></td>
+                    </tr>
+                    <tr>
+                        <th><?php echo $this->__('Info:'); ?></th>
+                        <td>
+
+                            <?php 
+                                if ($details['message'] != 'ok') {
+                                    echo $details['message'] ? $details['message'] : $this->__('Please check the configuration of Kuaidi100');
+                                }else{
+                                    echo '<ul class="trackingresult">';
+                                    foreach ($details['data'] as $keys => $values) {
+                                        echo '<li>'.$values['time'] . ' - ' .$values['context'] .'</li>';
+                                    }
+                                    echo '</ul>';
+                                }
+
+                            ?>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <script type="text/javascript">decorateTable('tracking-table-popup-<?php echo $_id++ ?>');</script>
+            <?php if (is_object($track) && count($track->getProgressdetail())>0): ?>
+                <br />
+                <table class="data-table" id="track-history-table-<?php echo $track->getTracking(); ?>">
+                    <col />
+                    <col width="1" />
+                    <col width="1" />
+                    <col />
+                    <thead>
+                        <tr>
+                            <th><?php echo $this->__('Location') ?></th>
+                            <th><?php echo $this->__('Date') ?></th>
+                            <th><?php echo $this->__('Local Time') ?></th>
+                            <th><?php echo $this->__('Description') ?></th>
+                        </tr>
+                   </thead>
+                   <tbody>
+                   <?php foreach($track->getProgressdetail() as $_detail): ?>
+                    <?php $_detailDate = (isset($_detail['deliverydate']) ? $this->formatDeliveryDate($_detail['deliverydate']) : '') ?>
+                    <?php $_detailTime = (isset($_detail['deliverytime']) ? $this->formatDeliveryTime($_detail['deliverytime'], $_detail['deliverydate']) : '') ?>
+                        <tr>
+                            <td><?php echo (isset($_detail['deliverylocation']) ? $_detail['deliverylocation'] : ''); ?></td>
+                            <td><span class="nobr"><?php echo $_detailDate ?></span></td>
+                            <td><span class="nobr"><?php echo $_detailTime ?></span></td>
+                            <td><?php echo (isset($_detail['activity']) ? $_detail['activity'] : '') ?></td>
+                        </tr>
+                   <?php endforeach; ?>
+                   </tbody>
+                </table>
+                <script type="text/javascript">decorateTable('track-history-table-<?php echo $track->getTracking(); ?>');</script>
+            <?php endif; ?>
+            <div class="divider"></div>
+            <?php if($counter!=$rowCount): ?>
+            <?php endif; ?>
+            <?php $counter++; ?>
+        <!--end for each tracking information-->
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p><?php echo $this->__('There is no tracking available for this shipment.'); ?></p>
+    <?php endif; ?>
+
+<?php endforeach; ?>
+<?php else: ?>
+    <h2><?php echo $this->__('Tracking Information'); ?></h2>
+    <strong><?php echo $this->__('There is no tracking available.'); ?></strong>
+<?php endif; ?>
+<div class="buttons-set">
+    <p class="back-link"><a href="<?php echo $this->getUrl('*/', array('order' => $this->getRequest()->getParam('order'))) ?>"><small>« </small><?php echo $this->__('Back') ?></a></p>
+</div>

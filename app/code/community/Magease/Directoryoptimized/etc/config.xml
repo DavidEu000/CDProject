@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Magease_Directoryoptimized>
+            <version>1.5.0</version>
+        </Magease_Directoryoptimized>
+    </modules>
+    <global>
+     <models>
+        <magease_directoryoptimized>
+            <class>Magease_Directoryoptimized_Model</class>
+            <resourceModel>magease_directoryoptimized_resource</resourceModel>
+        </magease_directoryoptimized>
+        <magease_directoryoptimized_resource>
+            <class>Magease_Directoryoptimized_Model_Resource</class>
+            <deprecatedNode>directoryoptimized_mysql4</deprecatedNode>
+            <entities>
+                <country_city>
+                    <table>directory_country_city</table>
+                </country_city>
+                <country_city_name>
+                    <table>directory_country_city_name</table>
+                </country_city_name>
+                <country_district>
+                    <table>directory_country_district</table>
+                </country_district>
+                <country_district_name>
+                    <table>directory_country_district_name</table>
+                </country_district_name>
+            </entities>
+        </magease_directoryoptimized_resource>
+    </models>
+    <resources>
+     <directoryoptimized_setup>
+        <setup>
+           <module>Magease_Directoryoptimized</module>
+           <class>Mage_Eav_Model_Entity_Setup</class>
+       </setup>
+       <connection><use>core_setup</use></connection>
+   </directoryoptimized_setup>
+   <directoryoptimized_write>
+    <connection><use>core_write</use></connection>
+</directoryoptimized_write>
+<directoryoptimized_read>
+    <connection><use>core_read</use></connection>
+</directoryoptimized_read>
+</resources>
+<helpers>
+   <directoryoptimized>
+      <class>Magease_Directoryoptimized_Helper</class>
+  </directoryoptimized>
+</helpers>
+<fieldsets>
+   <sales_copy_order_billing_address>
+    <city_id><to_order>*</to_order></city_id>
+    <district_id><to_order>*</to_order></district_id>
+    <district><to_order>*</to_order></district>
+</sales_copy_order_billing_address>
+<sales_copy_order_shipping_address>
+    <city_id><to_order>*</to_order></city_id>
+    <district_id><to_order>*</to_order></district_id>
+    <district><to_order>*</to_order></district>
+</sales_copy_order_shipping_address>
+<sales_convert_quote_address>
+    <city_id><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></city_id>
+    <district_id><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></district_id>
+    <district><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></district>
+</sales_convert_quote_address>
+<sales_convert_order_address>
+    <city_id><to_quote_address>*</to_quote_address></city_id>
+    <district_id><to_quote_address>*</to_quote_address></district_id>
+    <district><to_quote_address>*</to_quote_address></district>
+</sales_convert_order_address>
+<customer_address>
+   <city_id><to_quote_address>*</to_quote_address></city_id>
+   <district_id><to_quote_address>*</to_quote_address></district_id>
+   <district><to_quote_address>*</to_quote_address></district>
+</customer_address>
+<checkout_onepage_billing>
+    <city_id><to_customer>*</to_customer></city_id>
+    <district_id><to_customer>*</to_customer></district_id>
+    <district><to_customer>*</to_customer></district>
+</checkout_onepage_billing>              
+</fieldsets>
+</global>
+<frontend>
+   <routers>
+    <magease_directoryoptimized>
+        <use>standard</use>
+        <args>
+            <module>Magease_Directoryoptimized</module>
+            <frontName>magease_directoryoptimized</frontName>
+        </args>
+    </magease_directoryoptimized>
+</routers>
+</frontend>
+<default>
+    <customer>
+        
+        <address_templates>
+            <text>{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}
+                {{depend company}}{{var company}}{{/depend}}
+                {{if street1}}{{var street1}}
+                {{/if}}
+                {{depend street2}}{{var street2}}{{/depend}}
+                {{depend street3}}{{var street3}}{{/depend}}
+                {{depend street4}}{{var street4}}{{/depend}}
+                {{if city}}{{var city}},  {{/if}}{{if region}}{{var region}}, {{/if}}{{if postcode}}{{var postcode}}{{/if}}
+                {{var country}}
+                T: {{var telephone}}
+                {{depend fax}}F: {{var fax}}{{/depend}}
+                {{depend vat_id}}VAT: {{var vat_id}}{{/depend}}</text>
+                <oneline>{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}, {{var street}}, {{var city}}, {{var region}} {{var postcode}}, {{var country}}</oneline>
+                <html>{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}&lt;br/&gt;
+                    {{depend company}}{{var company}}&lt;br /&gt;{{/depend}}
+                    {{if street1}}{{var street1}}&lt;br /&gt;{{/if}}
+                    {{depend street2}}{{var street2}}&lt;br /&gt;{{/depend}}
+                    {{depend street3}}{{var street3}}&lt;br /&gt;{{/depend}}
+                    {{depend street4}}{{var street4}}&lt;br /&gt;{{/depend}}
+                    {{if region}}{{var region}} {{/if}}{{if city}}{{var city}} {{/if}}{{if district}}{{var district}}, {{/if}}{{if postcode}}{{var postcode}}{{/if}}&lt;br/&gt;
+                    {{var country}}&lt;br/&gt;
+                    {{depend telephone}}T: {{var telephone}}{{/depend}}
+                    {{depend fax}}&lt;br/&gt;F: {{var fax}}{{/depend}}
+                    {{depend vat_id}}&lt;br/&gt;VAT: {{var vat_id}}{{/depend}}</html>
+                    <pdf>{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}|
+                        {{depend company}}{{var company}}|{{/depend}}
+                        {{if street1}}{{var street1}}
+                        {{/if}}
+                        {{depend street2}}{{var street2}}|{{/depend}}
+                        {{depend street3}}{{var street3}}|{{/depend}}
+                        {{depend street4}}{{var street4}}|{{/depend}}
+                        {{if city}}{{var city}},|{{/if}}
+                        {{if region}}{{var region}}, {{/if}}{{if postcode}}{{var postcode}}{{/if}}|
+                        {{var country}}|
+                        {{depend telephone}}T: {{var telephone}}{{/depend}}|
+                        {{depend fax}}&lt;br/&gt;F: {{var fax}}{{/depend}}|
+                        {{depend vat_id}}&lt;br/&gt;VAT: {{var vat_id}}{{/depend}}|</pdf>
+                        <js_template>#{prefix} #{firstname} #{middlename} #{lastname} #{suffix}&lt;br/&gt;#{company}&lt;br/&gt;#{street0}&lt;br/&gt;#{street1}&lt;br/&gt;#{street2}&lt;br/&gt;#{street3}&lt;br/&gt;#{city}, #{region}, #{postcode}&lt;br/&gt;#{country_id}&lt;br/&gt;T: #{telephone}&lt;br/&gt;F: #{fax}&lt;br/&gt;VAT: #{vat_id}</js_template>
+                    </address_templates>
+                </customer>
+            </default>
+        </config>

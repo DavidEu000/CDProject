@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="format-detection" content="telephone=no" />
+        <title></title>
+        <link rel="stylesheet" href="<?php echo $this->getSkinUrl('alipaymate/alipay/openinbrowser.css'); ?>?d=20161027">
+    </head>
+    <body>
+        <div id="hint-layer" onclick="hide_hint(this);">
+            <img style="width:80%;" src="<?php echo $this->getSkinUrl('alipaymate/alipay/openinbrowser.png'); ?>" />
+        </div>
+
+        <div class="confirmBox">
+            <p class="success-icon"></p>
+            <p><a href="<?php echo $this->getOrderListUrl(); ?>" class="confirm" data-isclosed="false"> 查看订单 </a></p>
+        </div>
+
+        <script type="text/javascript">
+            function hide_hint(obj) {
+                obj.style.display="none";
+                return true;
+            }
+        </script>
+    </body>
+</html>

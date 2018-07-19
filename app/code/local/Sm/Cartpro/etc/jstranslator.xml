@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Intenso Premium Theme
+ * 
+ * @category    Itactica
+ * @package     Itactica_Intenso
+ * @copyright   Copyright (c) 2014 Itactica (http://www.itactica.com)
+ * @license     http://getintenso.com/license
+ */
+-->
+<jstranslator>
+    <sm-string-translation-1 translate="message" module="cartpro">
+        <message>Are you sure you would like to remove this item from the shopping cart?</message>
+    </sm-string-translation-1>
+    <sm-string-translation-2 translate="message" module="cartpro">
+        <message>Are you sure you would like to remove this item from the your wishlist?</message>
+    </sm-string-translation-2>
+</jstranslator>

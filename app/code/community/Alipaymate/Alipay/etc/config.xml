@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Alipaymate_Alipay>
+            <version>8.8</version>
+        </Alipaymate_Alipay>
+    </modules>
+    <global>
+        <models>
+            <alipay>
+                <class>Alipaymate_Alipay_Model</class>
+                <resourceModel>alipay_resource</resourceModel>
+            </alipay>
+
+            <alipay_resource>
+                <class>Alipaymate_Alipay_Model_Resource</class>
+                <deprecatedNode>alipay_mysql4</deprecatedNode>
+            </alipay_resource>
+        </models>
+
+        <blocks>
+            <alipay>
+                <class>Alipaymate_Alipay_Block</class>
+            </alipay>
+        </blocks>
+
+        <helpers>
+            <alipay>
+                <class>Alipaymate_Alipay_Helper</class>
+            </alipay>
+        </helpers>
+    </global>
+
+    <frontend>
+        <secure_url>
+            <alipay_processing>/alipay/processing</alipay_processing>
+        </secure_url>
+        <routers>
+            <alipay>
+                <use>standard</use>
+                <args>
+                    <module>Alipaymate_Alipay</module>
+                    <frontName>alipay</frontName>
+                </args>
+            </alipay>
+        </routers>
+        <translate>
+            <modules>
+                <Alipaymate_Alipay>
+                    <files>
+                        <default>Alipaymate_Alipay.csv</default>
+                    </files>
+                </Alipaymate_Alipay>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <alipay>
+                    <file>alipaymate/alipay.xml</file>
+                </alipay>
+            </updates>
+        </layout>
+    </frontend>
+
+   <adminhtml>
+        <translate>
+            <modules>
+                <Alipaymate_Alipay>
+                    <files>
+                        <default>Alipaymate_Alipay.csv</default>
+                    </files>
+                </Alipaymate_Alipay>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <default>
+        <payment>
+            <alipay>
+                  <model>alipay/payment</model>
+                  <title> 支付宝 </title>
+                  <show_logo>1</show_logo>
+                  <enable_repay>1</enable_repay>
+                  <order_status_payment_accepted>processing</order_status_payment_accepted>
+                  <debug>1</debug>
+                  <allowspecific>0</allowspecific>
+                  <service_type>create_direct_pay_by_user</service_type>
+                  <license>4ad3b2050d5500456dffa2141946cbf383c7a179</license>
+            </alipay>
+        </payment>
+    </default>
+</config>

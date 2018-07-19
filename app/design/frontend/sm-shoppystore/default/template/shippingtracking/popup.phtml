@@ -1,0 +1,124 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2014 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php /** @var $this Mage_Shipping_Block_Tracking_Popup */ ?>
+<?php $_results = $this->getPopUpTrackingInfo();?>
+<div style="padding: 15px;">
+    <h1><?php echo $this->__('Tracking Information'); ?></h1>
+    <button class="button" style="float:right;" onclick="window.close(); window.opener.focus();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
+
+<?php if(count($_results)>0): ?>
+<?php foreach($_results as $shipid => $_result): 
+
+?>
+    <?php if($shipid): ?>
+    <h2 class="sub-title"><?php echo $this->__('Shipment #').$shipid; ?></h2>
+    <?php endif; ?>
+    <?php if(count($_result)>0): ?>
+        <?php $rowCount = count($_result); $counter = 1; ?>
+        <?php $_id = 0; foreach($_result as $track): $details = Mage::helper('shippingtracking')->getKuaiDiTrackingInfo($track['track_number'],$track['carrier_code']);?>
+            <table class="tracking-table-popup table table-bordered" id="tracking-table-popup-<?php echo $_id ?>">
+                <col width="15%" />
+                <col />
+                <tbody>
+                    <tr>
+                        <th><?php echo $this->__('Tracking Number:'); ?></th>
+                        <td><?php echo $this->escapeHtml($track['track_number']); ?></td>
+                    </tr>
+                    <tr>
+                        <th><?php echo $this->__('Carrier:'); ?></th>
+                        <td><?php echo $this->escapeHtml($track['title']); ?></td>
+                    </tr>
+                    <tr>
+                        <th><?php echo $this->__('Info:'); ?></th>
+                        <td>
+
+                            <?php 
+                                if ($details['message'] != 'ok') {
+                                    echo $details['message'] ? $details['message'] : $this->__('Please check the configuration of Kuaidi100');
+                                }else{
+                                    echo '<ul class="trackingresult">';
+                                    foreach ($details['data'] as $keys => $values) {
+                                        echo '<li>'.$values['time'] . ' - ' .$values['context'] .'</li>';
+                                    }
+                                    echo '</ul>';
+                                }
+
+                            ?>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <script type="text/javascript">decorateTable('tracking-table-popup-<?php echo $_id++ ?>');</script>
+            <?php if (is_object($track) && sizeof($track->getProgressdetail())>0): ?>
+                <br />
+                <table class="data-table" id="track-history-table-<?php echo $track->getTracking(); ?>">
+                    <col />
+                    <col width="1" />
+                    <col width="1" />
+                    <col />
+                    <thead>
+                        <tr>
+                            <th><?php echo $this->__('Location') ?></th>
+                            <th><?php echo $this->__('Date') ?></th>
+                            <th><?php echo $this->__('Local Time') ?></th>
+                            <th><?php echo $this->__('Description') ?></th>
+                        </tr>
+                   </thead>
+                   <tbody>
+                   <?php foreach($track->getProgressdetail() as $_detail): ?>
+                    <?php $_detailDate = (isset($_detail['deliverydate']) ? $this->formatDeliveryDate($_detail['deliverydate']) : '') ?>
+                    <?php $_detailTime = (isset($_detail['deliverytime']) ? $this->formatDeliveryTime($_detail['deliverytime'], $_detail['deliverydate']) : '') ?>
+                        <tr>
+                            <td><?php echo (isset($_detail['deliverylocation']) ? $_detail['deliverylocation'] : ''); ?></td>
+                            <td><span class="nobr"><?php echo $_detailDate ?></span></td>
+                            <td><span class="nobr"><?php echo $_detailTime ?></span></td>
+                            <td><?php echo (isset($_detail['activity']) ? $_detail['activity'] : '') ?></td>
+                        </tr>
+                   <?php endforeach; ?>
+                   </tbody>
+                </table>
+                <script type="text/javascript">decorateTable('track-history-table-<?php echo $track->getTracking(); ?>');</script>
+            <?php endif; ?>
+            <div class="divider"></div>
+            <?php if($counter!=$rowCount): ?>
+            <?php endif; ?>
+            <?php $counter++; ?>
+        <!--end for each tracking information-->
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p><?php echo $this->__('There is no tracking available for this shipment.'); ?></p>
+    <?php endif; ?>
+
+<?php endforeach; ?>
+<?php else: ?>
+    <p><?php echo $this->__('There is no tracking available.'); ?></p>
+<?php endif; ?>
+<div class="buttons-set">
+    <button type="button" title="<?php echo $this->__('Close Window') ?>" class="button" onclick="window.close(); window.opener.focus();"><span><span><?php echo $this->__('Close Window') ?></span></span></button>
+</div>
+</div>

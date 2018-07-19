@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <CueBlocks_BulkRuleDeletion>
+            <version>1.0.0</version>
+        </CueBlocks_BulkRuleDeletion>
+    </modules>
+    <global>
+        <blocks>
+            <bulkruledeletion>
+                <class>CueBlocks_BulkRuleDeletion_Block</class>
+            </bulkruledeletion>
+            <adminhtml>
+                <rewrite>
+                    <promo_quote_grid>CueBlocks_BulkRuleDeletion_Block_Adminhtml_Promo_Quote_Grid</promo_quote_grid>
+                    <promo_catalog_grid>CueBlocks_BulkRuleDeletion_Block_Adminhtml_Promo_Catalog_Grid</promo_catalog_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+    </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <bulkruledeletion before="Mage_Adminhtml">CueBlocks_BulkRuleDeletion_Adminhtml</bulkruledeletion>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

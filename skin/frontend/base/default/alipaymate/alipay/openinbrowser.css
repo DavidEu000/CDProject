@@ -1,0 +1,67 @@
+html {
+    -moz-text-size-adjust: none;
+    font-size: 312.5%;
+}
+
+button, html, input, select, textarea {
+    font-family: "Helvetica Neue", Helvetica,"microsoft yahei",Arial,sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f6f6f6;
+    font-size: 0.24rem;
+    height: 100%;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+.confirmBox {
+    left: 52%;
+    margin-left: -2.94rem;
+    margin-top: -4.14rem;
+    position: absolute;
+    top: 50%;
+}
+
+.success-icon {
+    background: rgba(0, 0, 0, 0) url("./success.png") no-repeat scroll 0 0 / 1.72rem auto;
+    height: 1.74rem;
+    margin: 0 auto;
+    width: 1.74rem;
+}
+
+
+.confirm {
+    font-size: 0.48rem;
+    margin: 1rem auto;
+    border: 1px solid #959595;
+    color: #545352 !important;
+    display: inline-block;
+    height: 1.4rem;
+    line-height: 1.4rem;
+    margin-right: 0.5rem;
+    text-align: center;
+    width: 4.5rem;
+}
+
+#hint-layer {
+    z-index:999;
+    height:100%;
+    width:100%;
+    top:0px;
+    position:fixed;
+    background:rgba(0, 0, 0,0.5);
+    text-align:right;
+}
+
+#hint-layer img {
+    border: 0 none;
+    vertical-align: middle;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}

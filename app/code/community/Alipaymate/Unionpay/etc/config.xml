@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Alipaymate_Unionpay>
+            <version>5.0.0</version>
+        </Alipaymate_Unionpay>
+    </modules>
+    <global>
+        <models>
+            <unionpay>
+                <class>Alipaymate_Unionpay_Model</class>
+                <resourceModel>unionpay_resource</resourceModel>
+            </unionpay>
+
+            <unionpay_resource>
+                <class>Alipaymate_Unionpay_Model_Resource</class>
+                <deprecatedNode>unionpay_mysql4</deprecatedNode>
+            </unionpay_resource>
+        </models>
+
+        <blocks>
+            <unionpay>
+                <class>Alipaymate_Unionpay_Block</class>
+            </unionpay>
+        </blocks>
+
+        <helpers>
+            <unionpay>
+                <class>Alipaymate_Unionpay_Helper</class>
+            </unionpay>
+        </helpers>
+    </global>
+
+    <frontend>
+        <secure_url>
+            <unionpay_processing>/unionpay/processing</unionpay_processing>
+        </secure_url>
+        <routers>
+            <unionpay>
+                <use>standard</use>
+                <args>
+                    <module>Alipaymate_Unionpay</module>
+                    <frontName>unionpay</frontName>
+                </args>
+            </unionpay>
+        </routers>
+        <translate>
+            <modules>
+                <Alipaymate_Unionpay>
+                    <files>
+                        <default>Alipaymate_Unionpay.csv</default>
+                    </files>
+                </Alipaymate_Unionpay>
+            </modules>
+        </translate>
+        <layout>
+            <updates>
+                <unionpay>
+                    <file>alipaymate/unionpay.xml</file>
+                </unionpay>
+            </updates>
+        </layout>
+    </frontend>
+
+   <adminhtml>
+        <translate>
+            <modules>
+                <Alipaymate_Unionpay>
+                    <files>
+                        <default>Alipaymate_Unionpay.csv</default>
+                    </files>
+                </Alipaymate_Unionpay>
+            </modules>
+        </translate>
+    </adminhtml>
+
+    <default>
+        <payment>
+            <unionpay>
+                  <model>unionpay/payment</model>
+                  <title> 银联在线 </title>
+                  <show_logo>1</show_logo>
+                  <enable_repay>1</enable_repay>
+                  <order_status_payment_accepted>processing</order_status_payment_accepted>
+                  <debug>1</debug>
+                  <allowspecific>0</allowspecific>
+                  <gateway_url>https://gateway.95516.com/gateway/api/frontTransReq.do</gateway_url>
+                  <sandbox_gateway_url>https://101.231.204.80:5000/gateway/api/frontTransReq.do</sandbox_gateway_url>
+                  <sandbox>0</sandbox>
+                  <license>d1493630405a1cd3e82465e36426d8adf14c9d96</license>
+            </unionpay>
+        </payment>
+    </default>
+</config>
