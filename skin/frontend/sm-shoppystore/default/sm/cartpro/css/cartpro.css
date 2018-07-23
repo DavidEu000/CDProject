@@ -43,9 +43,10 @@ x#options #fancybox-wrap-clone:before,
     position: relative;
 }
 .icon-shopping-cart:before{
-	font-size:17px;
-	position:absolute;
-	top:15px;
+	font-size: 24px;
+    position: absolute;
+    top: 2px;
+    left: 0;
 	color:#000;
 }
 .block-cart {

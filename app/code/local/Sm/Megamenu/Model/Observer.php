@@ -39,6 +39,7 @@ class Sm_Megamenu_Model_Observer
 	public function setItemLRWhileEdit($observer){	//set item LR while edit item
 		$model = $observer->getMenuitems();
 		$selfId = $model->getData('id');
+		
 		$orderItemId = $model->getData('order_item'); 
 		if($orderItemId == $selfId){
 			$modelMenuitems = Mage::getModel('megamenu/menuitems')->load($selfId);

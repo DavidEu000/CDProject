@@ -80,6 +80,13 @@ $timeclick = $config['mini_cartpro_effect_duration'];
 				<?php } ?>			
 		 	//]]>
 		    </script>
+
+		    <span class="cart-icon"><i class="icon icon-shopping-cart" aria-hidden="true"></i></span>
+		    <span class="cart-amount"><?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?></span>
+		    <span class="cart-items"><?php echo count($_items);?></span>
+
+		<div class="hidden">
+
 			<?php if($hd_style == 'df' || $hd_style == 'hd2'){?>
 			<div class="info-mini-cart">
 				<span><?php if($_cartQty >= 0 && $_cartQty <= 9) echo '0'; echo $_cartQty;?> <?php echo $this->__('Items');?>  -</span>
@@ -103,6 +110,9 @@ $timeclick = $config['mini_cartpro_effect_duration'];
 					</div>
 				</div>
 			<?php } ?>
+
+		</div>
+
 		</div>
 	</div>
 

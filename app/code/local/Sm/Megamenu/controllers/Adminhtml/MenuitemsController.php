@@ -65,7 +65,7 @@ class Sm_Megamenu_Adminhtml_MenuitemsController extends Mage_Adminhtml_Controlle
 			$data['description'] = Mage::helper('megamenu/filter')->getFilterData	($data['description'],'text');
 			 // Zend_Debug::dump($data);die;	
 	  		$model = Mage::getModel('megamenu/menuitems');		
-			//var_dump($data); die;
+			// var_dump($data); die;
 			$model->setData($data)
 				->setId($this->getRequest()->getParam('id'));
 			if(!$this->getRequest()->getParam('id')){	//save item new 
@@ -83,6 +83,11 @@ class Sm_Megamenu_Adminhtml_MenuitemsController extends Mage_Adminhtml_Controlle
 				}	
 				// Zend_Debug::dump($data);die;
 				$model->save();
+
+				// Added on July 23,2018!!!
+		    	$write = Mage::getSingleton('core/resource')->getConnection('core_write');
+				$result=$write->query("UPDATE `sm_menu_items` SET `show_hot` = '".$data['show_hot']."' WHERE `sm_menu_items`.`id` = ".$this->getRequest()->getParam('id').";");
+				
 				if(!$this->getRequest()->getParam('id')){
 					Mage::dispatchEvent('megamenu_menuitems_updateItemsLR_after',array('menuitems'=>$model));	//update other items' Left, Right, Observer->updateItemsLR 
 				}

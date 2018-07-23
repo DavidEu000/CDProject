@@ -52,12 +52,25 @@ class Sm_Megamenu_Block_Adminhtml_Menuitems_Edit_Tab_Form extends Mage_Adminhtml
 			'values'    => Mage::getModel('megamenu/system_config_source_status')->toOptionArray(),	//$this->_getGroup(),
 			'note'		=> 'note: not affect with menu top!',
 		));	
+
+		$fieldset->addField('show_hot', 'select', array( // Added on July 23,2018
+			'label'     => Mage::helper('megamenu')->__('Show Hot Icon'),
+			'name'      => 'show_hot',
+			'values'    => Mage::getModel('megamenu/system_config_source_hot')->toOptionArray(),	//$this->_getGroup(),
+		));	
+
+		// $fieldset->addField('show_hot_icon', 'select', array( // Added on July 23,2018
+		// 	'label'     => Mage::helper('megamenu')->__('Show Hot Icon 2'),
+		// 	'name'      => 'show_hot_icon',
+		// 	'values'    => Mage::getModel('megamenu/system_config_source_status')->toOptionArray(),	//$this->_getGroup(),
+		// ));	
 		
 		$fieldset->addField('status', 'select', array(
 			'label'     => Mage::helper('megamenu')->__('Status'),
 			'name'      => 'status',
 			'values'    => Mage::getModel('megamenu/system_config_source_status')->toOptionArray(),
 		));
+
 		$des =	$fieldset->addField('description', 'textarea', array(
 			'title'     => Mage::helper('megamenu')->__('Description'),
 			'label'     => Mage::helper('megamenu')->__('Description'),
@@ -75,7 +88,7 @@ class Sm_Megamenu_Block_Adminhtml_Menuitems_Edit_Tab_Form extends Mage_Adminhtml
 			// 'class'     => 'required-entry',
 			// 'required'  => true,
 			'name'      => 'align',
-			'values'    => Mage::getModel('megamenu/system_config_source_align')->toOptionArray(),	//$this->_getGroup(),
+			'values'    => Mage::getModel('megamenu/system_config_source_hot')->toOptionArray(),	//$this->_getGroup(),
 		));
 		
 		// $fieldset->addField('show_as_group', 'select', array(
@@ -260,7 +273,7 @@ class Sm_Megamenu_Block_Adminhtml_Menuitems_Edit_Tab_Form extends Mage_Adminhtml
 		}
 		$order ->setAfterElementHtml($radioPositionHtml.$jsAfterOrder);	
 		
-$col =	$fieldset->addField('cols_nb', 'select', array(
+		$col =	$fieldset->addField('cols_nb', 'select', array(
 			'label'     => Mage::helper('megamenu')->__('Column Number'),
 			'class'     => 'required-entry',
 			'required'  => true,

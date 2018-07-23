@@ -10,14 +10,16 @@
 					<?php echo $this->getChildHtml('store_language') ?>
 					<?php echo $this->getChildHtml('currency'); ?>					
 					<div class="block-action-header top-link-account my-account-link">
+						<?php echo $this->getChildHtml('topLinks');?>
+						<!--  Commented on July 23,2018
 						<ul>
 							<li>
-								<a class="account-toplink dropdown-ict" title="<?php echo $this->__('My Account')?>" href="<?php echo $this->getUrl('customer/account')?>"><?php echo $this->__('My Account')?></a>
+								<a class="account-toplink dropdown-ict" title="<?php //echo $this->__('My Account')?>" href="<?php //echo $this->getUrl('customer/account')?>"><?php //echo $this->__('My Account')?></a>
 								<div class="dropdown-link-account">
-									<?php echo $this->getChildHtml('topLinks');?>
+									<?php //echo $this->getChildHtml('topLinks');?>
 								</div>
 							</li>
-						</ul>
+						</ul> -->
 					</div>
 					<!-- MYLOGIN -->
 					<div class="block-action-header top-link-account login-link">
@@ -27,7 +29,19 @@
 								<a class="login-btn" data-toggle="modal" data-target="#modal-login" title="<?php echo $this->__('Login')?>"><?php echo $this->__('Login')?></a>
                                 <?php echo $this->getChildHtml('customer_form_mini_login'); ?>
 							</li>
+							<li>
+								<a class="login-btn" href="<?php echo $this->getUrl('customer/account/create')?>" title="<?php echo $this->__('Register')?>"><?php echo $this->__('Register')?></a>
+							</li>
 							<?php } else{?>
+							<li>
+								<a class="login-btn" href="<?php echo $this->getUrl('customer/account/create')?>" title="<?php echo $this->__('Register')?>"><?php echo $this->__('我的订单')?></a>
+							</li>
+							<li>
+								<a class="login-btn" href="<?php echo $this->getUrl('customer/account')?>" title="<?php echo $this->__('My Account')?>"><?php echo $this->__('My Account')?></a>
+							</li>
+							<li>
+								<a class="login-btn" href="<?php echo $this->getUrl('customer/account/create')?>" title="<?php echo $this->__('Register')?>"><?php echo $this->__('我的收藏夹')?></a>
+							</li>
 							<li>
 								<a class="logout-btn" href="<?php echo $this->getUrl('customer/account/logout')?>" title="<?php echo $this->__('Logout');?>"><?php echo $this->__('Logout');?></a>
                             </li>
@@ -80,7 +94,7 @@
 					</h1>
 				</div>
 				
-				<div class="col-lg-9 col-md-10 col-sm-12 yt-megamenu" style="margin-top: 15px;" >
+				<div class="col-lg-6 col-md-7 col-sm-12 yt-megamenu">
 					<div class="yt-header-under2">
 						<div class="yt-menu">
 							
@@ -89,6 +103,10 @@
 						
 					</div>
 					
+				</div>
+
+				<div class="mini-cart-header">
+					<?php echo $this->getChildHtml('mini-cartpro') ?>
 				</div>
 
 			</div>
@@ -105,25 +123,23 @@
 						</div>
 						<div class="yt-searchbox-vermenu">
 							<div class="row">
-								<div class="col-lg-3 col-md-3">
+								<!-- Commented on July 23,2018 -->
+								<!-- <div class="col-lg-3 col-md-3">
 									<div class="ver-megamenu-header">
 											
-										 <?php if( $var_yttheme->getParam('menustyle') == 'mega' ){
-							                echo $this->getLayout()->createBlock('cms/block')->setBlockId('headerv5_ver_config')->toHtml();
-							            } else {
-							                echo $this->getChildHtml('topMenu');
-							            } ?>
+										 <?php //if( $var_yttheme->getParam('menustyle') == 'mega' ){
+							                //echo $this->getLayout()->createBlock('cms/block')->setBlockId('headerv5_ver_config')->toHtml();
+							            // } else {
+							               // echo $this->getChildHtml('topMenu');
+							            // } ?>
 									</div>
-								</div>
+								</div> -->
 								
-								<div class="col-lg-9 col-md-9">
+								<div class="col-lg-12 col-md-12">
 									<div class="yt-header-under">
 										<div class="yt-menu">
 											<?php echo $this->getChildHtml('megaMenu') ?>
 											
-										</div>
-										<div class="mini-cart-headerv3">
-											<?php echo $this->getChildHtml('mini-cartpro') ?>
 										</div>
 									</div>
 								</div>

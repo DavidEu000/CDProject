@@ -22,29 +22,32 @@ $options = $this->getConfigObject();?>
 		<div class="sm-searbox-content">
 			<form id="search_mini_form" action="<?php echo $this->helper('catalogsearch')->getResultUrl() ?>" method="get">
 				<div class="form-search">
-					<?php $categorySearchHelper = $this->helper('searchboxpro'); ?>
-					<div class="cat-wrapper">
-						<select id="<?php echo $categorySearchHelper->getCategoryParamName() ?>" name="<?php echo $categorySearchHelper->getCategoryParamName() ?>">
-							<option value=""><?php echo $this->__('All Categories') ?></option>
-
-							<?php foreach ( $cat_list as $cat):?>
-								<option value="<?php echo $cat['value'];?>"><?php echo $cat['label']; ?></option>
-							<?php endforeach;?>
-							
-							
-						</select>
-					</div>
 					<div class="input-search"> 
-						<input size="30" id="search" type="text" name="<?php echo $this->helper('catalogSearch')->getQueryParamName() ?>" class="input-text" value="<?php echo $this->__('Enter your keyword...') ?>"  />
+						<i class="icon icon-search"></i>
+						<input id="search" type="text" name="<?php echo $this->helper('catalogSearch')->getQueryParamName() ?>" class="input-text form-control" placeholder="<?php echo $this->__('Search by product, brand or condition') ?>" />
 					</div>
-					<button type="submit" title="<?php echo $this->__('Search') ?>" class="icon-search button-search-pro form-button"></button>
+					<button type="submit" class="btn-submit-search"><?php echo $this->__('Search') ?></button>
+					<!-- <button type="submit" title="<?php echo $this->__('Search') ?>" class="icon-search button-search-pro form-button"></button> -->
 					<div id="search_autocomplete" class="search-autocomplete"></div>
 				</div>
 			</form>
 		</div>
+
+		<?php $searchKeys = $this->getLayout()->createBlock('cms/block')->setBlockId('search-keywords')->toHtml(); ?>
+		<?php if ($searchKeys) {?>
+		<div class="sm-searchbox-popular">
+			<div class="sm-searchbox-popular-title"><?php echo $this->__('Popular Searches')?></div>
+			<div class="sm-searchbox-keyword">
+				<ul class="sm-searchbox-keyword-list">
+					<?php echo $searchKeys;?>
+				</ul>
+			</div>
+		</div>
+		<?php } ?>
+
 		<?php if( $options->show_popular == 1 ){?>
 			<div class="sm-searchbox-popular">
-				<div class="sm-searchbox-popular-title"><?php echo $this->__('Popular Searches: ')?></div>
+				<div class="sm-searchbox-popular-title"><?php echo $this->__('Popular Searches')?></div>
 				<div class="sm-searchbox-keyword">
 					<?php if( sizeof($this->getTerms()) > 0 ): //var_dump(count($this->getTerms));?>
 						<ul class="sm-searchbox-keyword-list">
