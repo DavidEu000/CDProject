@@ -126,5 +126,12 @@ echo $this->getScriptTags();
 <?php else: ?>
 <p class="note-msg"><?php echo $this->__('There are no items matching the selection.') ?></p>
 <?php endif; ?>
+<script type="text/javascript">
+<?php if($config['effect']==Sm_Megamenu_Model_System_Config_Source_ListEffect::CSS):?>
+	jQuery('ul.sm_megamenu_menu li.sm_megamenu_lv1').hover(function(e){	
+		jQuery(this).toggleClass("sm_megamenu_actived");
+	});
+<?php endif?>
 
+</script>
 

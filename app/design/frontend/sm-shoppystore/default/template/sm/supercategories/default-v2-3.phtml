@@ -12,6 +12,7 @@ $helper = Mage::helper('supercategories/data');
 $cat_info = $this->getListCategoriesFilter();
 
 $list = $this->getListCriterionFilter();
+
 if (!empty($list)) {
 	//$sub_cat = Mage::getStoreConfig('supercategories_cfg/source_options/sub_cat_limit');
 	$sub_cat = $this->_getConfig('sub_cat_limit');
@@ -68,7 +69,7 @@ if (!empty($list)) {
 	?>
 	<?php $class_respl = 'preset01-' . $this->_getConfig('nb_column1', 4) . ' preset02-' . $this->_getConfig('nb_column2', 3) . ' preset03-' . $this->_getConfig('nb_column3', 2) . ' preset04-' . $this->_getConfig('nb_column4', 2) . ' preset05-' . $this->_getConfig('nb_column5', 1); ?>
 
-	<div id="<?php echo $tag_id; ?>" class="super-category-block first-load sn-category-block">
+	<div id="<?php echo $tag_id; ?>" class="super-category-block super-static-category-block first-load sn-category-block">
 		
 		<div class="block-title-defaults">
 			
@@ -100,15 +101,14 @@ if (!empty($list)) {
 			<?php //echo $this->getLayout()->createBlock('cms/block')->setBlockId($staticID)->toHtml(); ?>
 		</div> -->
 
-		<?php if($btn == 1){ ?>
-			<a title="Previous" class="button-default prev-cat prev-super-cat-<?php echo $cat_info[0]['id'];?>"></a>
-		<?php } ?>
-		
 		<div class="super-cat-wrapper">
 			<div class="overflow-owl-slider">
 				<div class="border-cat">
 				<div class="rw-margin">
-					<div class="ltabs-items-container slider-cat-<?php echo $cat_info[0]['id'];?>"><!--Begin Items-->
+					<div class="ltabs-items-container cat-<?php echo $cat_info[0]['id'];?>"><!--Begin Items-->
+						<div class="item item-supercat respl-item static-block-img">
+							<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($staticID)->toHtml(); ?>
+						</div>
 						<?php foreach ($list as $items) {
 							$child_items = isset($items->child) ? $items->child : '';
 							$cls_device = $class_ltabs;
@@ -122,51 +122,11 @@ if (!empty($list)) {
 					</div>
 				</div>
 				
-				<script>
-					jQuery(document).ready(function($) {
-						var owl_cat_<?php echo $cat_info[0]['id'];?> = $(".slider-cat-<?php echo $cat_info[0]['id'];?>");
-						owl_cat_<?php echo $cat_info[0]['id'];?>.owlCarousel({
-							itemsCustom : [
-							[0, <?php echo $nb4;?>],
-							[480, <?php echo $nb3;?>],
-							[768, <?php echo $nb2;?>],
-							[992, <?php echo $nb2;?>],
-							[1200, <?php echo $nb1;?>]
-							], 
-							addClassActive: true,
-							navigation : false, // Show next and prev buttons
-							slideSpeed : <?php echo $speed;?>,
-							stopOnHover: <?php echo $stop_hover;?>,
-							paginationSpeed : 400,
-							autoPlay:<?php echo $play;?>,
-							pagination: false,
-						});	 
-								
-						$(".next-super-cat-<?php echo $cat_info[0]['id'];?>").click(function(){
-							owl_cat_<?php echo $cat_info[0]['id'];?>.trigger('owl.next');
-						})
-						$(".prev-super-cat-<?php echo $cat_info[0]['id'];?>").click(function(){
-							owl_cat_<?php echo $cat_info[0]['id'];?>.trigger('owl.prev');
-						})
-
-						// $(".next-super-cat-<?php echo $cat_info[0]['id'];?>").click(function(){
-						// 	owl_cat_<?php echo $cat_info[0]['id'];?>.trigger('owl.goTo', <?php echo $this->_getConfig('nbi_column1', 4);?>);
-						// })
-						// $(".prev-super-cat-<?php echo $cat_info[0]['id'];?>").click(function(){
-						// 	owl_cat_<?php echo $cat_info[0]['id'];?>.trigger('owl.goTo', -<?php echo $this->_getConfig('nbi_column1', 4);?>);
-						// })
-
-
-					});	
-				</script>
 				</div>
 			</div>
 			
 		</div>
 
-		<?php if($btn == 1){ ?>
-			<a title="Next" class="button-default next-cat next-super-cat-<?php echo $cat_info[0]['id'];?>"></a>
-		<?php } ?>
 		
 		<?php
 		$posttext = $this->_getConfig('posttext');

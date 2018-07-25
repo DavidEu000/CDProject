@@ -39,46 +39,57 @@ global $var_yttheme;?>
 			</div>
 		</div>
 	</div>
-	
-	<div class="footer-middle">
-		<div class="container">					
-				<div class="row">
-					<!-- <div class="col-lg-2 col-md-2 account-block">
-						<div class="col-footer">
-							<?php //echo $this->getChildHtml('account-footer') ?>
-						</div>
-					</div> -->
-					<div class="foot-ne corporate-block">
-						<div class="col-footer">
-							<?php echo $this->getChildHtml('corporate') ?>
-						</div>
-					</div>
-					<div class="foot-ne choose-block">
-						<div class="col-footer">
-							<?php echo $this->getChildHtml('choose') ?>
-						</div>
-					</div>
-					<div class="foot-ne infomation-block">
-						<div class="col-footer">
-							<?php echo $this->getChildHtml('infomation-footer') ?>
-						</div>
-					</div>
-					
-					<div class="foot-nes contact-block">
-						<div class="col-footer">
-							<?php echo $this->getChildHtml('contact-footer') ?>
-						</div>
-					</div>
-				</div>
-			
-		</div>
-	</div>
-<!-- FOOTER SEVICER -->
+
+	<!-- FOOTER SEVICER -->
 	<div class="footer-bottom-sevicer">
 		<div class="container">
 			<?php echo $this->getChildHtml('boxsevicer') ?>
 		</div>
 	</div>
+	
+	<div class="footer-middle">
+		<div class="container">					
+			<div class="row">
+				<!-- <div class="col-lg-2 col-md-2 account-block">
+					<div class="col-footer">
+						<?php //echo $this->getChildHtml('account-footer') ?>
+					</div>
+				</div> -->
+				<div class="foot-ne corporate-block">
+					<div class="col-footer">
+						<?php echo $this->getChildHtml('corporate') ?>
+					</div>
+				</div>
+				<div class="foot-ne choose-block">
+					<div class="col-footer">
+						<?php echo $this->getChildHtml('choose') ?>
+					</div>
+				</div>
+				<div class="foot-ne infomation-block">
+					<div class="col-footer">
+						<?php echo $this->getChildHtml('infomation-footer') ?>
+					</div>
+				</div>
+				
+				<div class="foot-nes contact-block">
+					<div class="col-footer">
+						<?php echo $this->getChildHtml('contact-footer') ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer-middle">
+		<div class="container">					
+			<div class="row">
+				<div class="payment col-sm-12">
+					<?php echo $this->getChildHtml('shoppy-payment') ?>
+				</div>
+			</div>
+		</div>
+	</div>
+
 <!-- FOOTER TAGS -->	
  	<div class="footer-bottom-tag">
 		<div class="container">
@@ -89,11 +100,8 @@ global $var_yttheme;?>
 	<div class="footer-bottom">
 		<div class="container">
 			<div class="row">
-				<div class="payment col-lg-push-7 col-md-5 col-sm-6 col-xs-12">
-					<?php echo $this->getChildHtml('shoppy-payment') ?>
-				</div>
 				
-				<div class="col-lg-pull-5 col-md-7 col-sm-6 col-xs-12">
+				<div class="col-sm-7 col-xs-12">
 					<div class="copyright-footer">
 						<?php if( $var_yttheme->getParam('custom_copyright') == 1 ){
 							echo $var_yttheme->getParam('copyright');

@@ -156,7 +156,7 @@ Default layout, loads most of the pages
             </block> -->
              <!-- END -->
 
-             <block type="core/text_list" name="slider_images_home" as="slider_images_home" translate="label">
+            <block type="core/text_list" name="slider_images_home" as="slider_images_home" translate="label">
                 <label>Slider Images Home</label>
             </block>
             <block type="core/text_list" name="deal-home" as="deal-home" translate="label">
