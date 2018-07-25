@@ -98,7 +98,7 @@ $_cfg = strtr(rtrim(base64_encode($_cfg), '='), '+/', '-_');
 				}
 			}
 
-			showAnimateItems($items_first_active);
+			// showAnimateItems($items_first_active);
 			$tab.on('click.tab', function () {
 				var $this = $(this);
 				if ($this.hasClass('tab-sel')) return false;
@@ -133,7 +133,7 @@ $_cfg = strtr(rtrim(base64_encode($_cfg), '='), '+/', '-_');
 								$('.ltabs-items-inner', _items_active).html(data.items_markup);
 								_items_active.addClass('ltabs-items-loaded').removeClass('ltabs-process');
 								$loading.remove();
-								showAnimateItems(_items_active);
+								// showAnimateItems(_items_active);
 								updateStatus(_items_active);
 
 								<?php if ($show_loadmore_slider == 'slider') { ?>
@@ -152,7 +152,7 @@ $_cfg = strtr(rtrim(base64_encode($_cfg), '='), '+/', '-_');
 
 					<?php if ($show_loadmore_slider == 'loadmore'){?>
 					$('.ltabs-item', $items_content).removeAttr('style').addClass('new-ltabs-item').css('opacity', 0);
-					showAnimateItems(_items_active);
+					// showAnimateItems(_items_active);
 					<?php } ?>
 
 					<?php if ($show_loadmore_slider == 'slider'){?>
@@ -211,7 +211,7 @@ $_cfg = strtr(rtrim(base64_encode($_cfg), '='), '+/', '-_');
 							if (data.items_markup != '') {
 								$(data.items_markup).insertAfter($('.ltabs-item', _items_active).nextAll().last());
 								$('.ltabs-image-loading', $this).css({display: 'none'});
-								showAnimateItems(_items_active);
+								// showAnimateItems(_items_active);
 								updateStatus(_items_active);
 							}
 						}, dataType: 'json'
@@ -265,7 +265,8 @@ $_cfg = strtr(rtrim(base64_encode($_cfg), '='), '+/', '-_');
 						1200: {
 							items:<?php echo $nb_column1;?>
 						}
-					}
+					},
+					
 				});
 			}
 

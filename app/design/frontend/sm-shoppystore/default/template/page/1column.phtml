@@ -73,7 +73,7 @@ global $var_yttheme;
 								<div class="col-1-wrapper">
 									<?php echo $this->getChildHtml('global_messages') ?>
 
-									<?php if($this->getchildHtml('slider_images_home')){ ?>
+									<?php if($this->getchildHtml('slider_images_home') && $this->getChildHtml('deal-home')){ ?>
 										<div class="row">
 											<div class="col-sm-9">
 												  <?php echo $this->getChildHtml('slider_images_home') ?>
@@ -82,7 +82,15 @@ global $var_yttheme;
 												<?php echo $this->getChildHtml('deal-home') ?>
 											</div>
 										</div>
-									<?php } ?>	
+									<?php } else { ?>	
+
+										<div class="row">
+											<div class="col-sm-12">
+												  <?php echo $this->getChildHtml('slider_images_home') ?>
+											</div>
+										</div>
+
+									<?php } ?>
 
 									<?php echo $this->getChildHtml('content') ?>   
 								</div>

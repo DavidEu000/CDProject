@@ -29,38 +29,7 @@ $category_image_config = array(
 				<li class="ltabs-tab <?php  echo  $this->__('sn').$i++?> <?php echo isset($tab->sel) ? '  tab-sel tab-loaded' : ''; ?> <?php echo ($tab->id == ('*')) ? ' tab-all' : ''; ?>"
 				    data-category-id="<?php echo $tab->id; ?>"
 				    data-active-content=".items-category-<?php echo ($tab->id == "*") ? 'all' : $tab->id; ?>">
-					<?php if ($this->_getConfig('icon_display', 1)) {
-						if ($tab->id != "*") {
-							$cat_img = $helper->getCatImage($tab, $this->_getConfig(), 'imgcfgcat');
-							if ($cat_img) {
-								?>
-								<div class="ltabs-tab-img">
-									<img
-										src="<?php //echo $helper->_resizeImage($cat_img, $category_image_config, 'category'); ?>"
-										title="<?php //echo $tab->title; ?>" alt="<?php //echo $tab->title; ?>"
-										/>
-									<span
-									class="ltabs-tab-label"><?php echo $helper->truncate($tab->title, $this->_getConfig('cat_title_maxlength')); ?>
-								</span>
-								</div>
-								
-								
-							<?php
-							}
-						} else {
-							$cat_img = $this->getSkinUrl('sm/listingtabs/images/icon-catall.png');
-							?>
-							<div class="ltabs-tab-img">
-								<img class="cat-all" src="<?php echo $cat_img; ?>"
-								     title="<?php echo $tab->title; ?>" alt="<?php echo $tab->title; ?>"
-								     style="width: 32px; height:74px;"/>
-							</div>
-						<?php
-						}
-						?>
-
-					<?php } ?>
-
+				    <span class="ltabs-tab-label"><?php echo $helper->truncate($tab->title, $this->_getConfig('cat_title_maxlength')); ?>
 					
 				</li>
 			<?php
