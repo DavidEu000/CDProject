@@ -23,6 +23,8 @@
  * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
  * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  */
+
+
 ?>
 <?php global $addto; ?>
 <?php 
@@ -30,11 +32,19 @@
 	$qtyStock = null;
 	$minimumQty = null;
 	$maxmumQty = null;
+	$cart_item = 0;
 	$qtyStock   = (int)Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product)->getQty();
 	$minimumQty = (int)$_product->getStockItem()->getMinSaleQty();
 	$maxmumQty  = (int)$_product->getStockItem()->getMaxSaleQty();
 	$manage_stock = (int)Mage::getModel('cataloginventory/stock_item')->loadByProduct($_product)->getManageStock();	
-	
+
+	$items = Mage::getSingleton('checkout/session')->getQuote()->getAllItems(); // Get All Shopping Cart Items
+
+	foreach($items as $item) {
+		if($item->getProductId() == $_product->getID()) {
+			$cart_item = $item->getQty();
+		}
+	}
 ?>
 <?php $buttonTitle = $this->__('Add to Cart'); ?>
 <?php if($_product->isSaleable()): ?>
@@ -46,6 +56,8 @@
 						<input type="hidden" name="proId" id="proId" value="<?php echo $_product->getId(); ?>"/>
 						<input type="button" class="quantity-controls quantity-minus" onclick="if(Number($('qty').value)>1){$('qty').value=Number($('qty').value)-1;}" value="">					
 						<input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="quantity-input qty" />
+
+						<input type="hidden" id="cart_stock" name="cart_stock" value="<?php echo $cart_item; ?>"/>
 						<input type="hidden" id="qty_stock" name="qty_stock" value="<?php echo $qtyStock; ?>"/>
 						<input type="hidden" id="max_qty_stock" name="max_qty_stock" value="<?php echo $maxmumQty; ?>"/>
 						<input type="hidden" id="min_qty_stock" name="min_qty_stock" value="<?php echo $minimumQty; ?>"/>
@@ -134,42 +146,58 @@
 		
 		// validate simple product
 		$('.btn-cart-single').bind("click",function(){	
+
 			re = 1;
 			proId = $("#proId").val();
 			curQty = $('#qty').val();
+			getCartQty = $('#cart_stock').val();
 			minQty = $('#min_qty_stock').val();
 			maxQty = $('#max_qty_stock').val();
 			qtyStock = $('#qty_stock').val();
 			qtyStock_1 = $('#qty_stock').val();						
-			
+
+			console.log(getCartQty);
 			if ( manage_stock == 0 ){
 				qtyStock = maxQty + 1;
 			}
-			if( minQty==''&&maxQty==''&&qtyStock=='' ){
-				alert('Please, select item');
+
+			if (getCartQty >= qtyStock) {
+				alert('Available Inventory is '+qtyStock_1+' and you have added '+ getCartQty +' in shopping cart.');
 				return false;
 			}
+
+			if (curQty == '') {
+				alert('Please select qty');
+				return false;
+			}
+
+			if( minQty == '' && maxQty == '' && qtyStock =='' ){
+				alert('Please select qty');
+				return false;
+			}
+
 			if(eval(maxQty - qtyStock) < 0){
 				temp = maxQty;
 			}else{
 				temp = qtyStock;
 			}
+
 			if(eval(temp - curQty) < 0){
 				re = 0;
 				if ( manage_stock == 0 ){
-					alert('Please, enter quantity  Min:'+minQty+' and  Max:'+maxQty);
+					alert('Please enter quantity  Min:'+minQty+' and  Max:'+maxQty);
 					return false;
 				}
-				alert('Please, enter quantity  Min:'+minQty+' and Max:'+maxQty+' (Inventory:'+qtyStock_1+')');
+				alert('Available Inventory is '+qtyStock_1);
 				return false;
 			}
 			if(eval(curQty - minQty) < 0){
 				re = 0;
 				if ( manage_stock == 0 ){
-					alert('Please, enter quantity Min:'+minQty+' and Max:'+maxQty);
+					alert('Please enter quantity Min:'+minQty+' and Max:'+maxQty);
 					return false;
 				}				
-				alert('Please, enter quantity Min:'+minQty+' and Max:'+maxQty+' (Inventory:'+qtyStock_1+')');
+				alert('Available Inventory is '+qtyStock_1);
 				return false;
 			}
 			if( $.session.get("session"+proId) != null && manage_stock == 1 ){
@@ -182,12 +210,14 @@
 				temp1 = eval(temp-curQty);
 				if(temp1 < 0){
 					re = 0;
-					alert("Please, enter quantity Min:"+minQty+' and Max:'+maxQty+' (Inventory:'+qtyStock_1+')');
+					alert('Available Inventory is '+qtyStock_1);
 					return false;
 				}
 			}
 			//end check qty of product
 			if(re==1){
+				// Added on July 25,2018 for syncing the number of this product!!!
+				$('#cart_stock').attr('value', parseInt(curQty) + parseInt(getCartQty));
 				productAddToCartForm.submit(this)
 				$.session.set("session"+proId,curQty);
 			} 
@@ -203,7 +233,7 @@
 				for(var i=1;i<=n_bundle;i++){
 					var ele_bundle = "#bundle-option-" + i;
 					if($(ele_bundle).val()==""){ 
-						alert("Please, select item");
+						alert("Please select item");
 						return false;
 					}
 				}
@@ -251,21 +281,21 @@
 						}
 						if(eval(temp - curQty) < 0){
 							if ( managestock == 0 ){
-								alert('Please, enter "'+proName+'" quantity Min:'+minQty+' and Max:'+maxQty);
+								alert('Please enter "'+proName+'" quantity Min:'+minQty+' and Max:'+maxQty);
 								re = 0;
 								return false;
 							}
-							alert('Please, enter "'+proName+'" quantity Min:'+minQty+' and Max:'+maxQty+' (Inventory: '+qtyStock_1+')');
+							alert('Available Inventory is '+qtyStock_1);
 							re = 0;
 							return false;
 						}
 						if(eval(curQty - minQty) < 0){
 							if ( managestock == 0 ){
-								alert('Please, enter "'+proName+'" quantity Min:'+minQty+' and Max:'+maxQty);
+								alert('Please enter "'+proName+'" quantity Min:'+minQty+' and Max:'+maxQty);
 								re = 0;
 								return false;
 							}
-							alert('Please, enter "'+proName+'" quantity Min:'+minQty+' and Max:'+maxQty+' (Inventory: '+qtyStock_1+')');
+							alert('Available Inventory is '+qtyStock_1);
 							re = 0;
 							return false;
 						}
@@ -279,7 +309,7 @@
 							temp1 = eval(temp-curQty);
 							if(temp1 < 0){		
 								re = 0;
-								alert('Please, enter "'+proName+'" quantity Min:'+minQty+' and Max:'+maxQty+' (Inventory: '+qtyStock_1+')');
+								alert('Available Inventory is '+qtyStock_1);
 								return false;
 							}
 						}					
@@ -288,7 +318,7 @@
 				});
 				if(re1 == 0){
 					re = 0;
-					alert("Please, choose item(s)");
+					alert("Please choose item(s)");
 					return false;
 				}
 				if(re == 1){
@@ -382,7 +412,7 @@
 						if( managestock == 0 ){
 							str = "Quantity '"+pro_name+"' invalid! Quantity must: Min:"+minQty+' and Max: '+maxQty;
 						}else{
-							str = "Quantity '"+pro_name+"' invalid! Quantity must: Min:"+minQty+' and Max: '+maxQty+' (Inventory: '+qtyStock+')';
+							str = 'Available Inventory is '+qtyStock;
 						}						
 						
 						$('#re'+id).val(str);
@@ -457,7 +487,7 @@
 										if( managestock == 0 ){
 											alert("Quantity '"+pro_name+"' invalid! Quantity must: Min:"+minQty+' and Max:'+maxQty);
 										}else{
-											alert("Quantity '"+pro_name+"' invalid! Quantity must: Min:"+minQty+' and Max:'+maxQty+' (Inventory: '+qtyStock+')');
+											alert('Available Inventory is '+qtyStock);
 										}																				
 										return;
 									 }		
@@ -470,7 +500,7 @@
 							 productAddToCartForm.submit(this);
 						}					
 					}else{
-						alert("Please, enter quantity for item(s)");
+						alert("Please enter quantity for item(s)");
 					}	
 				}else{
 					alert(mes);

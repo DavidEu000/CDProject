@@ -34,6 +34,7 @@
 	var productAddToCartForm;
 	var dConfig;
 	var classBtnAddtocart = '.btn-cart';
+
 	function ajaxUpdate(args,type)
 	{
 		if(type=="url"){
@@ -50,6 +51,8 @@
 				onSuccess : function(resp)
 				{
 					var respjson=resp.responseText.evalJSON();
+					// $('fixed-sidebar span.cart-items').innerHTML=iprocess;
+			      
 					updateCart(respjson);
 				},
 				onLoading : function(resp)
@@ -148,13 +151,23 @@
 						showConfirm(resp);
 					hideConfirm=0;
 				}
+
 				updateMiniCartPro(resp);
 				updateDeleteLinks();	//for btn delete in table item added tocart
 				updateLinks(resp);
 				if(islogin=="1"){
 					updateWishlistLinks();
 				}
-				updateProductCompareLinks();						
+				updateProductCompareLinks();
+
+				// Added on July 25,2018 for syncing all the cart item!!!
+				$$('span.cart-items').each(function(el){ el.innerHTML = resp.qty; });
+
+				if (resp.type == 'delete') { // Added on July 07,2018 to reset the status in Product Details Page!!!
+					$$('#cart_stock')[0].value = 0;
+					console.log($$('#cart_stock'));
+				}
+				
 			}
 			else{
 				if(resp.wishlist){
@@ -245,8 +258,11 @@
 			truncateOptions();		
 		}
 	}
+
+
 	function updateMiniCartPro(resp){
 		//var bcart=$$(minicartpro)[0];
+
 		if(typeof($$(minicartpro))!='undefined'){
 			$$(minicartpro).each(function(blockitem){ 
 				if(resp.cartpro!=""){

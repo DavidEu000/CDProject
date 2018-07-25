@@ -83,7 +83,7 @@ $timeclick = $config['mini_cartpro_effect_duration'];
 
 		    <span class="cart-icon"><i class="icon icon-shopping-cart" aria-hidden="true"></i></span>
 		    <span class="cart-amount"><?php echo Mage::helper('checkout')->formatPrice($this->getSubtotal()) ?></span>
-		    <span class="cart-items"><?php echo count($_items);?></span>
+		    <span class="cart-items"><?php echo Mage::helper('cartpro')->renderCartQty();?></span>
 
 		<div class="hidden">
 

@@ -321,6 +321,9 @@ class Sm_Cartpro_Helper_Data extends Mage_Core_Helper_Abstract
         }
         return $text;
 	}
+	public function renderCartQty(){ // Added on July 25,2017
+		return $count = Mage::helper('checkout/cart')->getSummaryCount();
+	}
 	public function renderWishlistTitle(){
 		$count = Mage::helper('wishlist')->getItemCount();
         if( $count == 1 ) {
@@ -348,7 +351,7 @@ class Sm_Cartpro_Helper_Data extends Mage_Core_Helper_Abstract
 	//public function setNameitem($name){
 	//	$this->nameitem=$name;
 	//}
-	public function sendResponse($cart, $carttitle, $cartpro){
+	public function sendResponse($cart, $carttitle, $cartpro, $qty, $type){ // $qty and $type are added on July 25,2018
 		$options="0";
 		$wishlist="";
 		$wishtitle="";
@@ -380,7 +383,7 @@ class Sm_Cartpro_Helper_Data extends Mage_Core_Helper_Abstract
 			$wishlist	=	$this->renderWishlist();
 			$wishtitle	=	$this->renderWishlistTitle();
 			header('content-type: text/javascript');
-			echo '{"r":"'.$addwhat.'", "wishlinks":"'.$wishtitle.'", "wishlist":'.json_encode($wishlist).', "cart":' . json_encode($cart) .', "cartpro":' . json_encode($cartpro). ', "links":"'.$carttitle.'","options":'.$options.', "nameitem":'.json_encode($nameitem).'}';
+			echo '{"type":"'.$type.'", "qty":"'.$qty.'", "r":"'.$addwhat.'", "wishlinks":"'.$wishtitle.'", "wishlist":'.json_encode($wishlist).', "cart":' . json_encode($cart) .', "cartpro":' . json_encode($cartpro). ', "links":"'.$carttitle.'","options":'.$options.', "nameitem":'.json_encode($nameitem).'}';
 			die();
 		}
 		elseif($iswishlist==2 AND $isfirst==1){
@@ -393,7 +396,7 @@ class Sm_Cartpro_Helper_Data extends Mage_Core_Helper_Abstract
 			$miniwish	=	$this->renderMiniWish();
 			$wishtitle	=	$this->renderWishlistTitle();
 			header('content-type: text/javascript');
-			echo '{"r":"'.$addwhat.'", "wishlinks":"'.$wishtitle.'", "wishlist":'.json_encode($miniwish).', "cart":' . json_encode($cart) .', "cartpro":' . json_encode($cartpro).  ', "links":"'.$carttitle.'","options":'.$options.', "nameitem":'.json_encode($nameitem).'}';
+			echo '{"type":"'.$type.'", "qty":"'.$qty.'", "r":"'.$addwhat.'", "wishlinks":"'.$wishtitle.'", "wishlist":'.json_encode($miniwish).', "cart":' . json_encode($cart) .', "cartpro":' . json_encode($cartpro).  ', "links":"'.$carttitle.'","options":'.$options.', "nameitem":'.json_encode($nameitem).'}';
 			die();			
 		}
 		else{
@@ -428,7 +431,7 @@ class Sm_Cartpro_Helper_Data extends Mage_Core_Helper_Abstract
 				$added_info 	=	"";
 			}
 			header('content-type: text/javascript');
-			echo '{"r":"'.$addwhat.'", "cart":' . json_encode($cart) .', "cartpro":' . json_encode($cartpro). ', "links":"'.$carttitle.'","options":'.$options.', "nameitem":'.json_encode($nameitem).', "infoitem":{"other":'.json_encode($added_info).'}}';
+			echo '{"type":"'.$type.'", "qty":"'.$qty.'", "r":"'.$addwhat.'", "cart":' . json_encode($cart) .', "cartpro":' . json_encode($cartpro). ', "links":"'.$carttitle.'","options":'.$options.', "nameitem":'.json_encode($nameitem).', "infoitem":{"other":'.json_encode($added_info).'}}';
 			// remove : "item":'.json_encode($item_block).',  from infoitem on 0202
 			die();		
 		}

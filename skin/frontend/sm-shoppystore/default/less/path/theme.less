@@ -1282,20 +1282,68 @@ label.required em {
 -----------------------------------------------------------------------*/
 
 /*------------------------back to top---------------------------------*/
-#yt-totop {
-  background: url("../../images/up-arrow.png") no-repeat scroll center center @color_theme;
+.fixed-sidebar {
   bottom: 30px;
-  height: 45px;
-  overflow: hidden;
   position: fixed;
-  right: 20px;
-  width: 45px;
+  right: 16.5%;
   z-index: 9999;
-  border-radius:50%;
-  -webkit-border-radius:50%;
-  -moz-border-radius:50%;
+  display: none;
 }
-
+.fixed-sidebar .other {
+    margin-bottom: 10px;
+    background: #ffffff;
+}
+.fixed-sidebar .other a{
+  display: block;
+}
+.fixed-sidebar .box-a {
+    height: 46px;
+    text-align: center;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+.fixed-sidebar .box-a:last-child{
+  border-bottom: none;
+}
+.sm_shoppy .fixed-sidebar .cart-items{
+  background-color: #f05f22;
+  color: white;
+  padding: 0 4px;
+  height: 17px;
+  width: auto;
+  top: 5px;
+  right: 5px;
+  line-height: 17px;
+  border-radius: 8px;
+}
+.fixed-sidebar .box-wx img{
+  display: none;
+  width: 136px;
+  position: absolute;
+  top: 0px;
+  right: 40px;
+  display: none;
+}
+a#yt-totop{
+  background: url("../../images/backtotop.png") no-repeat scroll center center @color_theme;
+  height: 46px;
+  width: 46px;
+  display: block;
+}
+.fixed-sidebar .box-a{
+  position: relative;
+}
+.fixed-sidebar .box-a .icon{
+  line-height: 50px;
+}
+.fixed-sidebar .icon:before{
+  position: inherit;
+  font-size: 22px;
+  color: #b4b4b4;
+}
+.fixed-sidebar .box-a:hover .icon:before{
+  color: @color_theme;
+}
 /*-------------------------css for home page---------------------------*/
 
 #yt_content .yt-slideshow {
@@ -6788,6 +6836,9 @@ span.hot_icon{
     position: absolute;
     right: 25px;
     top: 12px;
+}
+.yt-footer-wrap .footer-top {
+  display: none;
 }
 // .sj-listing-tabs .ltabs-tabs-container .ltabs-tabs li.tab-sel{
 //   border-left: 1px solid white;

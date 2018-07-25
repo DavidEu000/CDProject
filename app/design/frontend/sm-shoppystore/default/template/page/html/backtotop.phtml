@@ -5,21 +5,55 @@
  # Author: YouTech Company
  # Websites: http://www.magentech.com
 -------------------------------------------------------------------------*/?>
+<?php $blocks = $this->getLayout()->createBlock('cms/block')->setBlockId('social-medias-fixed')->toHtml(); ?>
 
-<a id="yt-totop" href="#" title="Go to Top"></a>
+<div class="fixed-sidebar">
+	<div class="other">
+        <?php echo $blocks;?>
+        <p class="box-a box-cart">
+        	<a href="<?php echo $this->getUrl('checkout/cart')?>" class="cart a">
+        		<i class="icon icon-shopping-cart" aria-hidden="true"></i>
+        		<span class="cart-items"></span>
+        	</a>
+        </p> 
+    </div>
+    <a id="yt-totop" href="#" title="Go to Top"></a>
+	
+</div>
+
 <script type="text/javascript">
 	jQuery(document).ready(function($){  
-		$("#yt-totop").hide();
+		var qty = $('.sm-cartpro .cart-items').text();
+		$(".fixed-sidebar span.cart-items").text(qty);
+		$(".fixed-sidebar").hide();
 		$(function () {
 			var wh = $(window).height();
 			var whtml =  $(document).height();
 			$(window).scroll(function () {
 				if ($(this).scrollTop() > whtml/10) {
-					$('#yt-totop').fadeIn();
+					$('.fixed-sidebar').fadeIn();
 				} else {
-					$('#yt-totop').fadeOut();
+					$('.fixed-sidebar').fadeOut();
 				}
 			});
+
+
+			$( ".fixed-sidebar .box-a a" ).hover(
+			  function() {
+
+			  	if ($( this ).has( "img" )) {
+			  		$( this ).children( "img" ).show();
+			  	}
+			    
+			  }, function() {
+
+			    if ($( this ).has( "img" )) {
+			  		$( this ).children( "img" ).hide();
+			  	}
+
+			  }
+			);
+
 			$('#yt-totop').click(function () {
 				$('body,html').animate({
 					scrollTop: 0

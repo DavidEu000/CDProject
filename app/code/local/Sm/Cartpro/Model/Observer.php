@@ -289,14 +289,16 @@ class Sm_Cartpro_Model_Observer
 					$cart = Mage::helper('cartpro')->renderMiniCart($ajax);
 					//$cart = Mage::helper('cartpro')->renderTopLink();
 					$text = Mage::helper('cartpro')->renderCartTitle();
+					$qty = Mage::helper('cartpro')->renderCartQty();
 					$cartpro = Mage::helper('cartpro')->renderMiniCartPro($ajax);					
-					Mage::helper('cartpro')->sendResponse($cart, $text, $cartpro);
+					Mage::helper('cartpro')->sendResponse($cart, $text, $cartpro, $qty, 'add');
 			}else{
 					Mage::helper('cartpro')->_NAMEITEM=$product->getName();
 					$cart = Mage::helper('cartpro')->renderBigCart();
 					$text = Mage::helper('cartpro')->renderCartTitle();
+					$qty = Mage::helper('cartpro')->renderCartQty();
 					$cartpro = Mage::helper('cartpro')->renderMiniCartPro($ajax);					
-					Mage::helper('cartpro')->sendResponse($cart, $text, $cartpro);
+					Mage::helper('cartpro')->sendResponse($cart, $text, $cartpro, $qty, 'add');
 			}
 		}	
 	}
@@ -310,13 +312,15 @@ class Sm_Cartpro_Model_Observer
 			if (!Mage::app()->getFrontController()->getRequest()->getParam('isCart')){
 					$cart = Mage::helper('cartpro')->renderMiniCart($ajax);
 					$text = Mage::helper('cartpro')->renderCartTitle();
+					$qty = Mage::helper('cartpro')->renderCartQty();
 					$cartpro = Mage::helper('cartpro')->renderMiniCartPro($ajax);					
-					Mage::helper('cartpro')->sendResponse($cart, $text, $cartpro);
+					Mage::helper('cartpro')->sendResponse($cart, $text, $cartpro, $qty, 'update');
 			}else{
 					$cart = Mage::helper('cartpro')->renderBigCart();
 					$text = Mage::helper('cartpro')->renderCartTitle();
+					$qty = Mage::helper('cartpro')->renderCartQty();
 					$cartpro = Mage::helper('cartpro')->renderMiniCartPro($ajax);					
-					Mage::helper('cartpro')->sendResponse($cart, $text, $cartpro);
+					Mage::helper('cartpro')->sendResponse($cart, $text, $cartpro, $qty, 'update');
 			}			
 		}
 	}
@@ -352,9 +356,10 @@ class Sm_Cartpro_Model_Observer
 			}else{
 				$cart = Mage::helper('cartpro')->renderBigCart();
 			}
+			$qty = Mage::helper('cartpro')->renderCartQty();
 			$text = Mage::helper('cartpro')->renderCartTitle();
 			$cartpro = Mage::helper('cartpro')->renderMiniCartPro();			
-			Mage::helper('cartpro')->sendResponse($cart, $text, $cartpro);
+			Mage::helper('cartpro')->sendResponse($cart, $text, $cartpro, $qty, 'delete');
 			exit();
 		}
 	}
