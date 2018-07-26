@@ -26,7 +26,14 @@ if ($this->_isAjax()) {
 if (!empty($child_items)) {
     $k = $this->getRequest()->getPost('ajax_listingtags_start', 0);
     foreach ($child_items as $_product) {
-        $k++; ?>
+        $k++; 
+
+        $now = date("Y-m-d");
+        $newsFrom = substr($_product->getData('news_from_date'), 0, 10);
+        $newsTo = substr($_product->getData('news_to_date'), 0, 10);
+        $specialprice = $_product->getData('special_price');
+
+    ?>
         <div class="ltabs-item new-ltabs-item respl-item">
             <div class="item-inner">
                 <?php
@@ -40,6 +47,25 @@ if (!empty($child_items)) {
                                  src="<?php echo $_product->_image; ?>"/>
                         </a>
                     </div>
+
+
+                    <?php if ($newsFrom !="" && $now>=$newsFrom && ($now<=$newsTo || $newsTo=="")){?>
+                            <div class="new-item">
+                                <span><?php echo $this->__('New'); ?></span>
+                            </div>
+                        <?php }?>
+                        
+                        <?php if ( $specialprice ){ ?>
+                            <!-- <div class="sale-item">
+                                <span><?php echo $this->__('Sale'); ?></span>
+                            </div> -->
+                            <div class="DiscountPercent">
+                                <label data-ajax-item="sales"><?php echo round((1-$_product->getData('special_price')/$_product->getData('price')) * 100)."%";?></label>
+                                <div class="off"><?php echo $this->__('OFF'); ?></div>
+                            </div>
+                        <?php }?>
+
+
 				<div class="item-info">
 					
     					<div class="item-title ">

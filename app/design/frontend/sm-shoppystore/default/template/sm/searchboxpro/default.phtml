@@ -35,8 +35,8 @@ $options = $this->getConfigObject();?>
 
 		<?php $searchKeys = $this->getLayout()->createBlock('cms/block')->setBlockId('search-keywords')->toHtml(); ?>
 		<?php if ($searchKeys) {?>
-		<div class="sm-searchbox-popular">
-			<div class="sm-searchbox-popular-title"><?php echo $this->__('Popular Searches')?></div>
+		<div class="sm-searchbox-popular clearfix">
+			<div class="sm-searchbox-popular-title hidden-xs"><?php echo $this->__('Popular Searches')?></div>
 			<div class="sm-searchbox-keyword">
 				<ul class="sm-searchbox-keyword-list">
 					<?php echo $searchKeys;?>

@@ -156,23 +156,22 @@
 			qtyStock = $('#qty_stock').val();
 			qtyStock_1 = $('#qty_stock').val();						
 
-			console.log(getCartQty);
 			if ( manage_stock == 0 ){
 				qtyStock = maxQty + 1;
 			}
 
-			if (getCartQty >= qtyStock) {
-				alert('Available Inventory is '+qtyStock_1+' and you have added '+ getCartQty +' in shopping cart.');
-				return false;
-			}
-
 			if (curQty == '') {
-				alert('Please select qty');
+				alert('<?php echo Mage::helper('core')->__('Please select qty');?>');
 				return false;
 			}
 
 			if( minQty == '' && maxQty == '' && qtyStock =='' ){
-				alert('Please select qty');
+				alert('<?php echo Mage::helper('core')->__('Please select qty');?>');
+				return false;
+			}
+
+			if (getCartQty >= qtyStock) {
+				alert('<?php echo Mage::helper('core')->__('Available Inventory is %s and you have added %s in shopping cart', "'+qtyStock_1+'", "'+getCartQty+'");?>');
 				return false;
 			}
 
@@ -185,19 +184,19 @@
 			if(eval(temp - curQty) < 0){
 				re = 0;
 				if ( manage_stock == 0 ){
-					alert('Please enter quantity  Min:'+minQty+' and  Max:'+maxQty);
+					alert('<?php echo Mage::helper('core')->__('Please enter quantity Min: %s and Max: %s', "'+minQty+'", "'+maxQty+'");?>');
 					return false;
 				}
-				alert('Available Inventory is '+qtyStock_1);
+				alert('<?php echo Mage::helper('core')->__('Available Inventory is %s', "'+qtyStock_1+'");?>');
 				return false;
 			}
 			if(eval(curQty - minQty) < 0){
 				re = 0;
 				if ( manage_stock == 0 ){
-					alert('Please enter quantity Min:'+minQty+' and Max:'+maxQty);
+					alert('<?php echo Mage::helper('core')->__('Please enter quantity Min: %s and Max: %s', "'+minQty+'", "'+maxQty+'");?>');
 					return false;
 				}				
-				alert('Available Inventory is '+qtyStock_1);
+				alert('<?php echo Mage::helper('core')->__('Available Inventory is %s', "'+qtyStock_1+'");?>');
 				return false;
 			}
 			if( $.session.get("session"+proId) != null && manage_stock == 1 ){
@@ -210,7 +209,7 @@
 				temp1 = eval(temp-curQty);
 				if(temp1 < 0){
 					re = 0;
-					alert('Available Inventory is '+qtyStock_1);
+					alert('<?php echo Mage::helper('core')->__('Available Inventory is %s', "'+qtyStock_1+'");?>');
 					return false;
 				}
 			}
@@ -281,21 +280,21 @@
 						}
 						if(eval(temp - curQty) < 0){
 							if ( managestock == 0 ){
-								alert('Please enter "'+proName+'" quantity Min:'+minQty+' and Max:'+maxQty);
+								alert('<?php echo Mage::helper('core')->__('Please enter %s quantity Min: %s and Max: %s', "'+proName+'", "'+minQty+'", "'+maxQty+'");?>');
 								re = 0;
 								return false;
 							}
-							alert('Available Inventory is '+qtyStock_1);
+							alert('<?php echo Mage::helper('core')->__('Available Inventory is %s', "'+qtyStock_1+'");?>');
 							re = 0;
 							return false;
 						}
 						if(eval(curQty - minQty) < 0){
 							if ( managestock == 0 ){
-								alert('Please enter "'+proName+'" quantity Min:'+minQty+' and Max:'+maxQty);
+								alert('<?php echo Mage::helper('core')->__('Please enter %s quantity Min: %s and Max: %s', "'+proName+'", "'+minQty+'", "'+maxQty+'");?>');
 								re = 0;
 								return false;
 							}
-							alert('Available Inventory is '+qtyStock_1);
+							alert('<?php echo Mage::helper('core')->__('Available Inventory is %s', "'+qtyStock_1+'");?>');
 							re = 0;
 							return false;
 						}
@@ -309,7 +308,7 @@
 							temp1 = eval(temp-curQty);
 							if(temp1 < 0){		
 								re = 0;
-								alert('Available Inventory is '+qtyStock_1);
+								alert('<?php echo Mage::helper('core')->__('Available Inventory is %s', "'+qtyStock_1+'");?>');
 								return false;
 							}
 						}					
@@ -410,9 +409,10 @@
 					if(temp < 0 || temp1 < 0 || temp2 < 0){
 						pro_name = $('#cur_pro_name'+id).val();
 						if( managestock == 0 ){
-							str = "Quantity '"+pro_name+"' invalid! Quantity must: Min:"+minQty+' and Max: '+maxQty;
+
+							str = '<?php echo Mage::helper('core')->__('Quantity %s invalid! Quantity must: Min: %s and Max: %s', "'+pro_name+'", "'+minQty+'", "'+maxQty+'");?>';
 						}else{
-							str = 'Available Inventory is '+qtyStock;
+							str = '<?php echo Mage::helper('core')->__('Available Inventory is %s', "'+qtyStock+'");?>'
 						}						
 						
 						$('#re'+id).val(str);
@@ -485,9 +485,9 @@
 										curQty = $("#"+id).val(0);											
 										pro_name = document.getElementById('cur_pro_name'+id_n).value;		
 										if( managestock == 0 ){
-											alert("Quantity '"+pro_name+"' invalid! Quantity must: Min:"+minQty+' and Max:'+maxQty);
+											alert('<?php echo Mage::helper('core')->__('Quantity %s invalid! Quantity must: Min: %s and Max: %s', "'+pro_name+'", "'+minQty+'", "'+maxQty+'");?>');
 										}else{
-											alert('Available Inventory is '+qtyStock);
+											alert('<?php echo Mage::helper('core')->__('Available Inventory is %s', "'+qtyStock+'");?>');
 										}																				
 										return;
 									 }		
@@ -500,7 +500,7 @@
 							 productAddToCartForm.submit(this);
 						}					
 					}else{
-						alert("Please enter quantity for item(s)");
+						alert('<?php echo Mage::helper('core')->__('Please enter quantity for item(s)');?>');
 					}	
 				}else{
 					alert(mes);

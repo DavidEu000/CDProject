@@ -75,8 +75,12 @@ if (!empty($child_items)) {
 						<?php }?>
 						
 						<?php if ( $specialprice ){ ?>
-							<div class="sale-item">
+							<!-- <div class="sale-item">
 								<span><?php echo $this->__('Sale'); ?></span>
+							</div> -->
+							<div class="DiscountPercent">
+								<label data-ajax-item="sales"><?php echo round((1-$item->getData('special_price')/$item->getData('price')) * 100)."%";?></label>
+								<div class="off"><?php echo $this->__('OFF'); ?></div>
 							</div>
 						<?php }?>
 

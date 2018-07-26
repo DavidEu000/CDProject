@@ -2,24 +2,68 @@
 	<div class="yt-header-top">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-6 col-md-5 sl-header-text">
+				<div id="yt-responsivemenu" class="yt-responsivemenu">
+					<?php echo $this->getChildHtml('mobiMenu'); ?>
+
+					<div class="action-mobile">
+
+						<div class="block-action-header top-link-account my-account-link account-mobile-btn">
+							<ul class="account-mobile-list">
+								<li>
+									<a class="login-btn" href="<?php echo $this->getUrl('sales/order/history')?>" title="<?php echo $this->__('My Orders')?>"><?php echo $this->__('My Orders')?></a>
+								</li>
+								<li class="logoutlink">
+									<a class="login-btn cartpr" href="<?php echo $this->getUrl('checkout/cart')?>" title="<?php echo $this->__('My Cart')?>"><?php echo $this->__('My Cart')?> <span class="cart-items"></span></a>
+								</li>
+								<li class="logoutlink">
+									<a href="jacascript::void(0);" class="show-dropdown-mobile" title="<?php echo $this->__('My Account')?>">
+										<?php echo $this->__('My Account')?> <i class="icon icon-angle-down" aria-hidden="true"></i>
+									</a>
+									<div class="dropdown-mobile">
+										<?php echo $this->getChildHtml('topLinks');?>
+									</div>
+								</li>
+								<?php if($this->helper('customer')->isLoggedIn()){?>
+
+									<li class="logoutlink">
+										<a class="logout-btn" href="<?php echo $this->getUrl('customer/account/logout')?>" title="<?php echo $this->__('Logout');?>">
+											<?php echo $this->__('Logout');?>
+										</a>
+									</li>
+
+								<?php } ?>
+							</ul>
+						</div>
+						
+						<div class="block-action-header top-link-account login-link login-mobile-btn">
+							<ul class="account-mobile-list">
+								<?php if(!$this->helper('customer')->isLoggedIn()){?>
+								<li>
+									<a class="login-btn" href="<?php echo $this->getUrl('customer/account/login')?>" title="<?php echo $this->__('Login')?>">
+										<?php echo $this->__('Login')?>
+									</a>
+								</li>
+								<li>
+									<a class="login-btn" href="<?php echo $this->getUrl('customer/account/create')?>" title="<?php echo $this->__('Register')?>"><?php echo $this->__('Register')?></a>
+								</li>
+								<?php }?>
+
+							</ul>
+						</div>
+						
+					</div>
+				</div>
+				<div class="col-md-4 sl-header-text">
+
 					<?php echo $this->getChildHtml('header-slider');?>
 				</div>
 				<!-- LANGUAGE_CURENCY -->
-				<div class="col-lg-6 col-md-7 top-links-action">
+				<div class="col-md-8 top-links-action">
 					<?php echo $this->getChildHtml('store_language') ?>
 					<?php echo $this->getChildHtml('currency'); ?>					
 					<div class="block-action-header top-link-account my-account-link">
 						<?php echo $this->getChildHtml('topLinks');?>
-						<!--  Commented on July 23,2018
-						<ul>
-							<li>
-								<a class="account-toplink dropdown-ict" title="<?php //echo $this->__('My Account')?>" href="<?php //echo $this->getUrl('customer/account')?>"><?php //echo $this->__('My Account')?></a>
-								<div class="dropdown-link-account">
-									<?php //echo $this->getChildHtml('topLinks');?>
-								</div>
-							</li>
-						</ul> -->
+						
 					</div>
 					<!-- MYLOGIN -->
 					<div class="block-action-header top-link-account login-link">
@@ -32,52 +76,12 @@
 							<li>
 								<a class="login-btn" href="<?php echo $this->getUrl('customer/account/create')?>" title="<?php echo $this->__('Register')?>"><?php echo $this->__('Register')?></a>
 							</li>
-							<?php } else{?>
-							<li>
-								<a class="login-btn" href="<?php echo $this->getUrl('customer/account/create')?>" title="<?php echo $this->__('Register')?>"><?php echo $this->__('我的订单')?></a>
-							</li>
-							<li>
-								<a class="login-btn" href="<?php echo $this->getUrl('customer/account')?>" title="<?php echo $this->__('My Account')?>"><?php echo $this->__('My Account')?></a>
-							</li>
-							<li>
-								<a class="login-btn" href="<?php echo $this->getUrl('customer/account/create')?>" title="<?php echo $this->__('Register')?>"><?php echo $this->__('我的收藏夹')?></a>
-							</li>
-							<li>
-								<a class="logout-btn" href="<?php echo $this->getUrl('customer/account/logout')?>" title="<?php echo $this->__('Logout');?>"><?php echo $this->__('Logout');?></a>
-                            </li>
 							<?php } ?>
+
 						</ul>
 					</div>
 					<!-- END LOGIN -->
 					
-					<div class="action-mobile">
-
-						<div class="block-action-header top-link-account my-account-link account-mobile-btn">
-							<ul>
-								<li>
-									<a class="acc-mobile" title="<?php echo $this->__('My Account')?>" href="<?php echo $this->getUrl('customer/account')?>">&nbsp;</a>
-								</li>
-							</ul>
-							<div class="dropdown-mobile">
-								<?php echo $this->getChildHtml('topLinks');?>
-							</div>
-						</div>
-						
-						<div class="block-action-header top-link-account login-link login-mobile-btn">
-							<ul>
-								<?php if(!$this->helper('customer')->isLoggedIn()){?>
-								<li>
-									<a class="login-btn" href="<?php echo $this->getUrl('customer/account/login')?>" title="<?php echo $this->__('Login')?>">&nbsp;</a>
-								</li>
-								<?php } else{?>
-								<li>
-									<a class="logout-btn" href="<?php echo $this->getUrl('customer/account/logout')?>" title="<?php echo $this->__('Logout');?>">&nbsp;</a>
-								</li>
-								<?php } ?>
-							</ul>
-						</div>
-						
-					</div>
 				</div>
 			</div>
 		</div>
@@ -94,7 +98,7 @@
 					</h1>
 				</div>
 				
-				<div class="col-lg-6 col-md-7 col-sm-12 yt-megamenu">
+				<div class="col-lg-6 col-md-7 col-sm-12 col-xs-12 yt-megamenu">
 					<div class="yt-header-under2">
 						<div class="yt-menu">
 							
@@ -105,7 +109,7 @@
 					
 				</div>
 
-				<div class="mini-cart-header">
+				<div class="mini-cart-header hidden-xs">
 					<?php echo $this->getChildHtml('mini-cartpro') ?>
 				</div>
 
@@ -118,9 +122,7 @@
 			<div class="row yt-header-under-wrap">
 				<div class="yt-main-menu col-md-12">
 					<div class="header-under-2-wrapper">
-						<div id="yt-responsivemenu" class="yt-responsivemenu">
-							<?php echo $this->getChildHtml('mobiMenu'); ?>
-						</div>
+						
 						<div class="yt-searchbox-vermenu">
 							<div class="row">
 								<!-- Commented on July 23,2018 -->
@@ -139,7 +141,6 @@
 									<div class="yt-header-under">
 										<div class="yt-menu">
 											<?php echo $this->getChildHtml('megaMenu') ?>
-											
 										</div>
 									</div>
 								</div>

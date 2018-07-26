@@ -8,7 +8,7 @@
 <?php $blocks = $this->getLayout()->createBlock('cms/block')->setBlockId('social-medias-fixed')->toHtml(); ?>
 
 <div class="fixed-sidebar">
-	<div class="other">
+	<div class="other hidden-xs">
         <?php echo $blocks;?>
         <p class="box-a box-cart">
         	<a href="<?php echo $this->getUrl('checkout/cart')?>" class="cart a">
@@ -18,18 +18,38 @@
         </p> 
     </div>
     <a id="yt-totop" href="#" title="Go to Top"></a>
-	
 </div>
 
 <script type="text/javascript">
 	jQuery(document).ready(function($){  
 		var qty = $('.sm-cartpro .cart-items').text();
+
+
 		$(".fixed-sidebar span.cart-items").text(qty);
+		$(".cartpr span.cart-items").text(qty);
 		$(".fixed-sidebar").hide();
+
+		$('.show-dropdown-mobile').on('click', function(event) {
+			if ($(".dropdown-mobile").is( ":hidden" )) {
+				$(".dropdown-mobile").css("display","block");
+			} else {
+				$(".dropdown-mobile").css("display","none");
+			}
+		});
+
+		document.onclick = function(e){
+			if (e.target.className == 'show-dropdown-mobile') {
+				return false;
+			}
+			
+			$(".dropdown-mobile").css("display","none");
+		};
+
 		$(function () {
 			var wh = $(window).height();
 			var whtml =  $(document).height();
 			$(window).scroll(function () {
+				if (true) {}
 				if ($(this).scrollTop() > whtml/10) {
 					$('.fixed-sidebar').fadeIn();
 				} else {

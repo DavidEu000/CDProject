@@ -37,3 +37,7 @@
 "Enter your keyword...","输入关键字..."
 "Enter your email address","输入您的邮箱地址"
 "Idcard","身份证号"
+"Please select qty","请先选择数量"
+"My Order","我的订单"
+"Available Inventory is %s","可用库存只有 %s"
+"Available Inventory is %s and you have added %s in shopping cart","可用库存只有 %s 个, 您已添加 %s 个在购物车中"
